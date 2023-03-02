@@ -1,0 +1,39 @@
+#문제 3. 스택을 이용한 괄호 검사 알고리즘
+
+# 스택을 통한 검사 알고리즘.
+# 1. 여는 괄호를 만나면 stack 에 푸시한다
+# 2. 닫는 괄호를 만나면 stack에서 pop 해준다
+# 2-1. 만약 stack안에 남은 것이 없다면, 오류를 결과에 반환한다.
+# 3. 여는 괄호와 닫힌 괄호를 제외한 것은 전부 result에 append한다
+# 4. for i in range(len(input()))에서 i 가 input 한 문자열을 순회한 뒤에,
+# 4-1. 스택에 요소가 남거나,
+# 4-2. 값을 옮겨준 result 의 크기와 인풋의 총 크기가 다르다면,
+# 모두 오류를 반환한다.
+#과정을 stack 상의 여는 괄호 표시로 하면 다음과 같다
+# [(] #여는 괄호를 만나 push # if (
+# [(, (] #여는 괄호를 만나 push # if ( (
+# [(] #닫는 괄호를 만나 pop # if ( ( i == 0 )
+# [(, (] #여는 괄호를 만나 push # if ( ( i == 0 ) && (
+# [(] # 닫는 괄호를 만나 pop # if ( ( i == 0 ) && ( j == 0)
+# [] #닫는 괄호를 만나 pop # if ( ( i == 0 ) && ( j == 0))
+# [] #닫는 괄호가 있으나, stack에 pop 할 요소가 없으므로 오류를 반환 # if ( ( i == 0 ) && ( j == 0)))
+a = 'if ( ( i == 0 ) && ( j == 0)))'
+stack = []
+result = ''
+for i in range(len(a)):
+    if a[i] == '(': # 1. 여는 괄호를 만나면 stack 에 푸시한다
+        stack.append(a[i])
+    elif a[i] != '(' and a[i] != ')': # 3. 여는 괄호와 닫힌 괄호를 제외한 것은 전부 result에 append한다
+        result += a[i]
+    if a[i] == ')' and len(stack) > 0: # 2. 닫는 괄호를 만나면 stack에서 pop 해준다
+        result += stack.pop()
+        result += a[i]
+    elif a[i] == ')' and len(stack) == 0: # 2-1. 만약 stack안에 남은 것이 없다면, 오류를 결과에 반환한다.
+        print('")"가 "("보다 많아 오류 발생')
+        break
+# 4. for i in range(len(input()))에서 i 가 input 한 문자열을 순회한 뒤에,
+if len(stack) >= 1: # 4-1. 스택에 요소가 남거나, 값을 옮겨준 result 의 크기와 인풋의 총 크기가 다르다면, 오류를 반환한다.
+    print('"(" 가 ")" 보다 많아 오류 발생')
+
+if len(result) == len(a):
+    print(a, result, '괄호가 정상적으로 표기됨')

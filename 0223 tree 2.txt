@@ -1,0 +1,251 @@
+전위 중위 후위 순회가 있었다
+부모-자식 관계로 나타내고, 이진 트리 형식을 주로 다뤘다
+전위는 VLR 중위는 LVR 후위는 LRV
+13
+1 2 1 3 2 4 3 5 3 6 4 7 5 8 5 9 6 10 6 11 7 12 11 13
+
+def preorder(i):
+	if i:
+		print(i,end=' ')
+		preorder(left[i])
+		preorder(right[i])
+	return
+#이 경우는 전위 순회
+#재귀함수로 스스로를 콜함
+def preorder(i):
+	print(i, end=' ')
+	if left[i]:
+		preorder(left[i])
+	if right[i]:
+		preorder(right[i]
+	return
+def inorder(i):
+	if i:
+		inorder(left[i])
+		print(i, end=' ')
+		inorder(right[i])
+	return
+def postorder(i):
+	if i 
+		postorder(left[i])
+		postorder(right[i])
+		print(i, end=' ')
+	return
+v = int(input()) #v = 정점갯수
+arr = list(map(int,input().split()))
+e = v -1 #e = 간선의 갯수
+left = [0]*(v+1) #0번 인덱스를 쓰지 않으므로.
+right = [0]*(v+1)#위와 동일
+parent = [0]*(v+1) #자식을 인덱스로 부모를 저장함
+#child = [[] for _ in range(v+1)]
+for i in range(E):
+	p, c = arr[i*2], arr[i*2+1]#좌측 자식노드와 오른쪽 자식노드
+	if left[p] ==0:
+		left[p] = c
+	else:
+		right[p] = c
+	par[c] = p
+	#child[p].append(c)
+root = 1
+while parent[root] != 0:
+	root+=1
+print(root)
+preorder(root)
+print()
+inorder(root)
+print()
+postorder(root)
+print()
+
+순회를 도는 형태를 출력하기
+preorder(root)
+print()
+inorder(root)
+print()
+postorder(root)
+print()
+5라는 노드를 루트로 하는 서브트리를 순회하게 해보기
+preorder(5)
+print()
+inorder(5)
+print()
+postorder(5)
+print()
+더 위로 거슬러가지는 않고, 서브트리 내부만을 돌고 끝난다
+
+
+수식 트리
+표기법에 따라 표기하면 된다
+
+이진 탐색 트리
+모든 원소가 서로 다른 유일한 키를 받음
+루트값을 기준으로 각 왼쪽서브트리<루트<오른쪽 서브트리 순으로
+
+탐색연산
+루트노드부터 비교하면서
+key_value = 루트노드 : 같음
+key > root = 오른쪽 서브노드로 간다
+
+삭제연산
+
+힙
+#최대 100개의 key
+#최대 힙
+
+def enq(n):
+	global last
+	last += 1 #완전이진트리에 마지막정점을추가
+	heap[last] = n #마지막 정점에 저장
+	c = last #부모가 있고, 부모>자식 조건 검사를 위해
+	p=c//2
+	while p>0 and heap[p]<heap[c]: #부모 노드가 0이 아니면서 heap에서 돌린 값이 자식 값이 더 크다면
+		heap[p], heap[c] = heap[c], heap[p] #자리값 바꿔주기
+		c=p p와 c도 바꿔주기
+		p=c//2
+	return
+def deq(n):#heap에서의 삭제
+	global last
+	tmp = heap[1]#루트값을 임시로 받기
+	heap[1] = heap[last]#마지막 정점의 값을 루트로 이동
+	last -=1#마지막 정점 삭제		
+	p=1
+	c= p*2 #왼쪽 자식번호
+	while c <= last : #자식이 하나 이상 있으면
+		if c+1 <= last and heap[c] < heap[c+1]#오른쪽 자식이 있고, 오른쪽 자식의 키 값이 더 크면
+			c += 1 #비교 대상을 오른쪽 자식으로 변경
+		if heap[c] > heap[p]: #자식이 부모보다 크면
+			heap[c],heap[p] = heap[p],heap[c]
+			p = c #바꿔주고
+			c = p * 2
+		else:
+			break
+		return tmp
+heap = [0]*101 #완전이진트리 1-100의 인덱스 준비
+
+last = 0
+enq(5)
+print(heap[1])
+enq(15)
+print(heap[1])
+enq(8)
+print(heap[1])
+enq(20)
+print(heap[1])
+
+while last>1:
+	print(deq())
+
+한개 노드에 있어서 최대의 자식 노드 갯수가 2인 트리를 이진 트리 로 정의함
+
+배열에 저장하기 위해서 각 노드에 번호를 부여함 (배열은 노드+1로 해야 함)
+
+노드의 번호값//2 = 부모노드 번호값
+부모 노드 번호값 *2 = 왼쪽 자식노드값
+부모 노드 번호값 *2 +1 = 오른쪽 자식노드의 값
+
+왼쪽 자식 번호를 저장하는 left = [0]*(N+1)
+오른쪽 자식 번호를 저장하는 right = [0]*(N+1)
+그리고 부모 노드번호를 저장하는 parents = [0]*(N+1)
+순회에 대해서
+세 가지 형태로 순회가 가능한(전위VLR/중위LVR/후위LRV)
+교재 트리순회
+수식트리(교재)
+12*34-+ (후위)
+
+def preorder():
+	print(
+def inorder():
+def postorder():
+이진 탐색 트리
+탐색과정을 효율적으로 하기 위해
+새로운 값이 들어갈 때마다 트리 결과를 반환하라
+삽입 연산 - 
+1.루트노드와 비교
+2. 결과에 따라 좌/우측 자식노드로 따라감
+3. 해당 노드 위치에 다른 값이 있는가를 비교하며 내려감(재귀호출)
+삭제 연산 - 교재
+다음 트리에 대해서 13,12,9를 삭제하기
+9 4 3 6 12 15 13 17(전위)
+
+
+힙 - 우선순위 큐
+완전 이진 트리/노드 탐색/가장 큰 노드,가장 작은 노드를 찾기 위한 자료 구조
+배열의 낭비되는 공간이 없다
+최대 힙 = 모든 노드 간 관계에서, 부모 노드는 자식 노드보다 커야 함
+최소 힙 = 반대
+힙이 되려면 완전 이진 트리가 되어야 한다
+부모 자식 간의 관계가 모든 트리 안에서 작아지거나,커지는 것으로 같아야 한다
+힙 연산 삽입 - 부모 노드와 비교하면서 크면 서로 바꿔준다
+더 이상 바꿀 부모 노드가 없다면, 자리를 확정한다
+def enq(item):
+	global hsize
+	hsize += 1
+	heap[hsize] = item
+	c = hsize
+	p = c // 2
+	while p and heap[p] > heap[c]:
+	heap[p] , heap[c] = heap[c], heap[p]
+	c = p
+	p = c//2
+def deq():
+	global hsize
+	tmp = heap[1]
+	heap[1] = heap[hsize]
+	hsize -= 1
+	p=1
+	c=p*2
+	while p and c<=hsize:	
+		if h[c] > h[c+1]:
+			c += 1
+		if heap[p] > heap[c]:
+			heap[p], heap[c] = heap[c], heap[p]
+			p=c
+			c=p*2
+		else:
+			break
+	return tmp
+heap = [0]*101
+hsize = 0
+enq(10)
+print(heap[1:hsize+1])
+enq(20)
+print(heap[1:hsize+1])
+enq(30)
+print(heap[1:hsize+1])
+enq(40)
+print(heap[1:hsize+1])
+enq(50)
+print(heap[1:hsize+1])
+
+
+item = deq()
+print(item)
+print(heap[1:hsize+1])
+끝나고 나서 왜 배열 리스트를 위처럼 뽑았나
+
+#random 값까지
+#heapq를 사용해서 min-heap 최소합
+from heapq import heapify, heappop,heappush
+pq = [random.randint(1,101) for _ in range(10)]
+heapify(pq)
+print('pq:',pq)
+pq.pop(0) #이후에 자리바꾸기까지 해줘야 heap이 망가지지 않는다
+item = heappop(pq)
+print('item pop', item)
+print('pq:',pq)
+heappush(pq,50)
+print('pq:'pq)
+
+#큐/디큐에 대한 객체를 만들어서 하기
+from collections import deque
+q = deque()
+q.append(10)
+
+
+
+
+
+
+
+
+

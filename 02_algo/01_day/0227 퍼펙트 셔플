@@ -1,0 +1,54 @@
+
+#
+# 빈 리스트를 만들고 그 안에 셔플된 결과를 집어넣으면 되지 않을까?
+# 퍼펙트 셔플이란, 덱을 절반으로 나누고, 나눈 것들에서 교대로 뽑아 새로운 덱을 만드는 것을 말함
+#
+# T = int(input())
+#
+# for tc in range(1, T + 1):
+#     N = int(input())
+#     card = list(input().split())
+#     ans = []
+#     l = 0
+#     r = (N + 1) // 2
+#     for _ in range(N // 2):
+#         ans.append(card[l])
+#         ans.append(card[r])
+#         l, r = l + 1, r + 1
+#
+#     if N % 2:
+#         ans.append(card[N//2])
+#     print(f'#{tc},end=' ')
+#     print(*result)
+#
+T = int(input())
+for tc in range(1, T + 1):
+    N = int(input())
+    deck = list(input().split())
+    cnt = N // 2
+    if N % 2:  # N이 홀수면
+
+        halve_a = deck[0:cnt]
+        halve_b = deck[cnt:N + 1]  # 홀수 짝수 같아도 크게 상관없음, halve_b부터 쌓을 것이므로
+
+    else:
+        halve_a = deck[0:cnt]
+        halve_b = deck[cnt:N + 1]
+
+    result = []  # 밑 부터 놓일 것 즉 halve_b부터 놓는다
+
+    while halve_a:  # halve_b로 하면 마지막 halve_b[-1]을 넣은 순간에
+        # halve_a가 없어서 오류를 반환함
+        result.append(halve_b[-1])
+        halve_b.pop()
+        result.append(halve_a[-1])
+        halve_a.pop()
+
+    result.reverse()  # 일단 뒤집어 주고
+
+    if halve_b:  # 남은 b를 처리함(원래 a에 갔어야 할 것을 b에 받았으므로 마지막에 추가하면 됨)
+        result.append(halve_b[-1])
+        halve_b.pop()
+
+    print(f'#{tc}', end=' ')
+    print(*result) #출력에서 언패킹 한 결과를 원함
